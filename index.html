@@ -1,134 +1,294 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Сырым / SyrN1k</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-<style>
-    body {
-        margin: 0;
-        font-family: 'Roboto', sans-serif;
-        background: linear-gradient(135deg, #4b0082, #8a2be2);
-        color: #fff;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        min-height: 100vh;
-        overflow-x: hidden;
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Сырым / SyrN1k — Визитка</title>
+
+  <!-- Font Awesome (icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root{
+      --bg-1: #0b0f17;
+      --bg-2: #0f1220;
+      --accent-1: #7b5cff;
+      --accent-2: #6ee7f1;
+      --card-bg: rgba(255,255,255,0.03);
+      --glass: rgba(255,255,255,0.04);
+      --text: #eef2ff;
+      --muted: rgba(255,255,255,0.65);
     }
 
+    /* Reset & base */
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter, "Segoe UI", Roboto, Arial, sans-serif;-webkit-font-smoothing:antialiased}
+    body{
+      background:
+        radial-gradient(1200px 600px at 10% 10%, rgba(123,92,255,0.06), transparent 10%),
+        radial-gradient(1000px 500px at 90% 90%, rgba(110,231,241,0.03), transparent 12%),
+        linear-gradient(180deg, var(--bg-1), var(--bg-2));
+      color:var(--text);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px 20px;
+      overflow-x:hidden;
+    }
+
+    /* Subtle animated geometric pattern (CSS - keeps file single) */
+    .pattern {
+      position:fixed;
+      inset:0;
+      background-image:
+        linear-gradient(transparent 46%, rgba(255,255,255,0.008) 47%, rgba(255,255,255,0.008) 53%, transparent 54%),
+        linear-gradient(90deg, transparent 46%, rgba(255,255,255,0.006) 47%, rgba(255,255,255,0.006) 53%, transparent 54%);
+      background-size: 60px 60px, 60px 60px;
+      mix-blend-mode: overlay;
+      opacity:0.6;
+      pointer-events:none;
+      transform: translateZ(0);
+      animation: drift 20s linear infinite;
+      filter: blur(0.2px);
+    }
+    @keyframes drift {
+      from{ transform: translate3d(0,0,0) }
+      to{ transform: translate3d(-40px,30px,0) }
+    }
+
+    /* Card */
+    .card {
+      width: 420px;
+      max-width: calc(100% - 40px);
+      border-radius: 16px;
+      padding: 28px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      box-shadow:
+        0 10px 30px rgba(2,6,23,0.6),
+        inset 0 1px 0 rgba(255,255,255,0.02);
+      border: 1px solid rgba(123,92,255,0.08);
+      position: relative;
+      overflow: visible;
+      text-align:center;
+      backdrop-filter: blur(6px) saturate(120%);
+    }
+
+    /* Glow behind card */
+    .card::before{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:-30%;
+      transform:translateX(-50%);
+      width:480px;
+      height:220px;
+      background: radial-gradient(closest-side, rgba(123,92,255,0.12), transparent 50%);
+      filter: blur(40px);
+      pointer-events:none;
+    }
+
+    /* Avatar circle */
     .avatar {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        background: url('avatar.jpg') center/cover no-repeat, #6a0dad;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 48px;
-        font-weight: bold;
-        margin-top: 40px;
-        box-shadow: 0 0 15px rgba(0,0,0,0.3);
-        transition: transform 0.3s;
+      width:140px;
+      height:140px;
+      border-radius:50%;
+      margin: -80px auto 12px;
+      background: linear-gradient(135deg,var(--accent-1), #5f3dff);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:800;
+      font-size:44px;
+      color:white;
+      box-shadow: 0 6px 22px rgba(91,55,199,0.25), 0 2px 6px rgba(0,0,0,0.5);
+      border: 3px solid rgba(255,255,255,0.03);
     }
-
-    .avatar:hover {
-        transform: scale(1.1);
-    }
+    /* If using an image, it will cover the circle */
+    .avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
 
     .name {
-        font-size: 28px;
-        font-weight: bold;
-        margin-top: 20px;
+      margin-top:8px;
+      font-size:20px;
+      letter-spacing:0.2px;
+      font-weight:700;
+      color:var(--text);
     }
 
-    .description {
-        font-size: 16px;
-        text-align: center;
-        max-width: 350px;
-        margin: 10px 20px 30px 20px;
-        line-height: 1.5;
-        opacity: 0;
-        animation: fadeIn 1s forwards 0.3s;
+    .sub {
+      margin:8px 0 18px;
+      color:var(--muted);
+      font-size:14px;
     }
 
+    /* Icons area */
     .icons {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-        margin-bottom: 40px;
-        opacity: 0;
-        animation: fadeIn 1s forwards 0.6s;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      justify-content:center;
+      padding:6px 10px 22px;
     }
 
-    .icon {
-        width: 50px;
-        height: 50px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #8a2be2;
-        border-radius: 12px;
-        transition: transform 0.3s, background 0.3s;
-        text-decoration: none;
-        color: white;
-        font-size: 24px;
+    .link {
+      width:64px;
+      height:64px;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+      color:white;
+      text-decoration:none;
+      font-size:26px;
+      transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+      box-shadow: 0 6px 18px rgba(2,6,23,0.45);
+      border: 1px solid rgba(255,255,255,0.03);
     }
 
-    .icon:hover {
-        transform: scale(1.2);
-        background: #4b0082;
+    .link:hover{
+      transform: translateY(-6px) scale(1.04);
+      box-shadow: 0 18px 40px rgba(103,58,183,0.18);
+      background: linear-gradient(135deg, rgba(123,92,255,0.18), rgba(110,231,241,0.06));
+      color: #fff;
     }
 
-    @keyframes fadeIn {
-        to { opacity: 1; }
+    /* Colored accent inside icon circle */
+    .link .fa-stack{
+      width:100%;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
 
-    @media (max-width: 400px) {
-        .avatar {
-            width: 100px;
-            height: 100px;
-            font-size: 36px;
-        }
-
-        .name {
-            font-size: 22px;
-        }
-
-        .description {
-            font-size: 14px;
-        }
-
-        .icon {
-            width: 45px;
-            height: 45px;
-            font-size: 20px;
-        }
+    /* Big CTA row */
+    .bottom-row{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      margin-top:6px;
+      flex-wrap:wrap;
     }
-</style>
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    .btn {
+      padding:10px 14px;
+      border-radius:10px;
+      background:linear-gradient(90deg,var(--accent-1), #4cc1ff 120%);
+      color:#071022;
+      font-weight:700;
+      text-decoration:none;
+      box-shadow: 0 8px 24px rgba(123,92,255,0.12);
+      transition: transform .18s ease;
+    }
+    .btn:hover{transform:translateY(-4px) scale(1.02)}
+
+    /* small meta */
+    .meta{
+      margin-top:16px;
+      font-size:12px;
+      color:rgba(255,255,255,0.45);
+    }
+
+    /* Responsive */
+    @media (max-width:480px){
+      .card{padding:18px}
+      .avatar{width:118px;height:118px;margin-top:-60px;font-size:36px}
+      .link{width:56px;height:56px;font-size:22px;border-radius:12px}
+      .name{font-size:18px}
+    }
+  </style>
 </head>
 <body>
 
-<div class="avatar">ST</div>
-<div class="name">Сырым / SyrN1k</div>
-<div class="description">
-Инженер, люблю музыку, игры и ночные поездки
-</div>
+  <!-- animated subtle pattern -->
+  <div class="pattern" aria-hidden="true"></div>
 
-<div class="icons">
-    <a class="icon" href="https://t.me/SyrNlk" target="_blank" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
-    <a class="icon" href="https://www.instagram.com/syrym_tursynbek?igsh=aWIzdHk2YjZ4NTlo" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-    <a class="icon" href="https://www.tiktok.com/@syrn1k?_r=1&_t=ZS-912aozhZ5Ut" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
-    <a class="icon" href="https://x.com/SyrN1k_?t=5ixVqZfKkQL7OKYLpLu5TA&s=09" target="_blank" title="X / Twitter"><i class="fab fa-x-twitter"></i></a>
-    <a class="icon" href="https://steamcommunity.com/profiles/76561198985265034/" target="_blank" title="Steam"><i class="fab fa-steam"></i></a>
-    <a class="icon" href="https://mangalib.me/ru/user/1524293" target="_blank" title="MangaLib"><i class="fas fa-book"></i></a>
-    <a class="icon" href="https://vk.com/s.tursynbek" target="_blank" title="VK"><i class="fab fa-vk"></i></a>
-    <a class="icon" href="https://music.yandex.ru/users/s.tursynbek/playlists/3?utm_medium=copy_link&ref_id=456ecb96-abb2-4123-9f92-bdde8804429b" target="_blank" title="Yandex Music"><i class="fas fa-music"></i></a>
-    <a class="icon" href="tel:+77752369423" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-</div>
+  <div class="card" role="main" aria-label="Визитка Сырым">
+    <!-- Avatar:
+         - По умолчанию здесь буквы ST.
+         - Чтобы поставить свою фотографию: сложи рядом с index.html файл avatar.jpg (или поменяй имя в теге img ниже).
+         - Раскомментируй блок <img ...> и закомментируй / удаляй блок с текстом ST.
+    -->
+    <div class="avatar" id="avatar">
+      <!-- Use the letters by default -->
+      <span>ST</span>
 
+      <!-- Если хочешь вставить фото, замени комментарии:
+      <img src="avatar.jpg" alt="Сырым">
+      -->
+    </div>
+
+    <div class="name">Сырым / SyrN1k</div>
+    <div class="sub">Инженер, люблю музыку, игры и ночные поездки</div>
+
+    <!-- Icons: все ссылки открываются в новой вкладке -->
+    <div class="icons" role="navigation" aria-label="Ссылки на социальные профили">
+      <a class="link" href="https://t.me/SyrNlk" target="_blank" rel="noopener" title="Telegram">
+        <i class="fab fa-telegram-plane" aria-hidden="true"></i>
+      </a>
+
+      <a class="link" href="https://www.instagram.com/syrym_tursynbek?igsh=aWIzdHk2YjZ4NTlo" target="_blank" rel="noopener" title="Instagram">
+        <i class="fab fa-instagram" aria-hidden="true"></i>
+      </a>
+
+      <a class="link" href="https://www.tiktok.com/@syrn1k?_r=1&_t=ZS-912aozhZ5Ut" target="_blank" rel="noopener" title="TikTok">
+        <i class="fab fa-tiktok" aria-hidden="true"></i>
+      </a>
+
+      <a class="link" href="https://x.com/SyrN1k_?t=5ixVqZfKkQL7OKYLpLu5TA&s=09" target="_blank" rel="noopener" title="X">
+        <i class="fab fa-x" aria-hidden="true"></i>
+      </a>
+
+      <a class="link" href="https://steamcommunity.com/profiles/76561198985265034/" target="_blank" rel="noopener" title="Steam">
+        <i class="fab fa-steam" aria-hidden="true"></i>
+      </a>
+
+      <a class="link" href="https://mangalib.me/ru/user/1524293" target="_blank" rel="noopener" title="MangaLib">
+        <i class="fas fa-book" aria-hidden="true"></i>
+      </a>
+
+      <a class="link" href="https://vk.com/s.tursynbek" target="_blank" rel="noopener" title="VK">
+        <i class="fab fa-vk" aria-hidden="true"></i>
+      </a>
+
+      <a class="link" href="https://music.yandex.ru/users/s.tursynbek/playlists/3?utm_medium=copy_link&ref_id=456ecb96-abb2-4123-9f92-bdde8804429b" target="_blank" rel="noopener" title="Yandex.Music">
+        <i class="fas fa-music" aria-hidden="true"></i>
+      </a>
+
+      <a class="link" href="https://wa.me/77752369423" target="_blank" rel="noopener" title="WhatsApp">
+        <i class="fab fa-whatsapp" aria-hidden="true"></i>
+      </a>
+
+      <a class="link" href="mailto:syrym.tursynbek@gmail.com" target="_blank" rel="noopener" title="Email">
+        <i class="fas fa-envelope" aria-hidden="true"></i>
+      </a>
+    </div>
+
+    <div class="bottom-row">
+      <!-- Primary actions — можно менять -->
+      <a class="btn" href="tel:+77752369423" title="Позвонить">Позвонить</a>
+      <a class="btn" href="https://t.me/SyrNlk" target="_blank" rel="noopener" title="Написать в Telegram">Написать</a>
+    </div>
+
+    <div class="meta">День рождения: 12.05.2003 • Steam / VK / TikTok / Insta</div>
+  </div>
+
+  <!-- Optional small script: replace avatar with image if avatar.jpg exists in same folder.
+       Если хочешь — можешь удалить <script> блок и просто положить avatar.jpg рядом и раскомментировать img в HTML выше.
+  -->
+  <script>
+    (function(){
+      // Try to load avatar.jpg — if success, replace ST with image
+      var img = new Image();
+      img.src = 'avatar.jpg';
+      img.onload = function(){
+        var a = document.getElementById('avatar');
+        a.innerHTML = '';
+        img.alt = 'Сырым';
+        a.appendChild(img);
+      };
+      // if fails — nothing happens, ST stays
+    })();
+  </script>
 </body>
 </html>
