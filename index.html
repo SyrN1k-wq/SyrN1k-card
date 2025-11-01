@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Сырым / SyrN1k — Визитка</title>
 
-<!-- Font Awesome для иконок -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
@@ -17,7 +16,6 @@
     --muted: rgba(255,255,255,0.75);
   }
 
-  /* Базовый сброс */
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
   body{
@@ -28,13 +26,11 @@
     align-items:center;
     justify-content:center;
     padding:28px;
-    -webkit-font-smoothing:antialiased;
-    position:relative;
     overflow:hidden;
+    position:relative;
   }
 
-  /* Большие неоновые соты — SVG фон */
-  /* svg вставлен как data-uri для одной текстурной плитки, масштабируем и задаем повтор */
+  /* Фон с крупными неоновыми сотами */
   body::before{
     content:"";
     position:fixed;
@@ -42,44 +38,36 @@
     z-index:0;
     background-color: var(--bg-dark);
     background-image:
-      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='208' viewBox='0 0 240 208'><defs><pattern id='h' width='120' height='104' patternUnits='userSpaceOnUse' patternTransform='scale(1)'><polygon points='60,0 120,30 120,78 60,104 0,78 0,30' fill='none' stroke='%238b5cff' stroke-opacity='0.08' stroke-width='1'/></pattern></defs><rect width='100%' height='100%' fill='none'/></svg>")
-      ;
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='208' viewBox='0 0 240 208'><defs><pattern id='h' width='120' height='104' patternUnits='userSpaceOnUse'><polygon points='60,0 120,30 120,78 60,104 0,78 0,30' fill='none' stroke='%239b6bff' stroke-opacity='0.12' stroke-width='1.2'/></pattern></defs><rect width='100%' height='100%' fill='url(%23h)'/></svg>");
     background-repeat:repeat;
-    background-position: center top;
-    mix-blend-mode: overlay;
-    opacity:0.95;
-    filter: blur(0.6px) contrast(1.05);
-    transform: translateZ(0);
-    animation: slowShift 18s linear infinite;
-    will-change: transform;
+    background-size:260px auto;
+    opacity:0.9;
+    animation: moveBg 40s linear infinite;
   }
 
-  /* дополнительный слой свечения (движение и мягкий неон) */
+  @keyframes moveBg {
+    0%{background-position:0 0;}
+    50%{background-position:80px 60px;}
+    100%{background-position:0 0;}
+  }
+
+  /* Свечение по углам */
   body::after{
     content:"";
     position:fixed;
-    inset:-20%;
+    inset:-10%;
     z-index:0;
     background:
-      radial-gradient(30% 30% at 15% 20%, rgba(123,92,255,0.10), transparent 12%),
-      radial-gradient(40% 40% at 80% 80%, rgba(94,226,255,0.06), transparent 15%);
+      radial-gradient(25% 25% at 15% 20%, rgba(155,107,255,0.1), transparent 60%),
+      radial-gradient(35% 35% at 80% 80%, rgba(94,242,255,0.08), transparent 70%);
     filter: blur(40px);
-    animation: glowShift 14s ease-in-out infinite;
-    pointer-events:none;
+    animation: glow 15s ease-in-out infinite alternate;
+  }
+  @keyframes glow {
+    0%{transform:translate(0,0)}
+    100%{transform:translate(-40px,30px)}
   }
 
-  @keyframes slowShift {
-    0%{ transform: translate3d(0,0,0) scale(1); }
-    50%{ transform: translate3d(-30px,20px,0) scale(1.02); }
-    100%{ transform: translate3d(0,0,0) scale(1); }
-  }
-  @keyframes glowShift {
-    0%{ transform: translate3d(0,0,0) }
-    50%{ transform: translate3d(-60px,40px,0) }
-    100%{ transform: translate3d(0,0,0) }
-  }
-
-  /* Карточка */
   .card{
     position:relative;
     z-index:2;
@@ -94,22 +82,6 @@
     backdrop-filter: blur(6px) saturate(120%);
   }
 
-  /* неоновая глоу-подложка у карточки (слабая) */
-  .card::before{
-    content:"";
-    position:absolute;
-    left:50%;
-    top:-18%;
-    transform:translateX(-50%);
-    width:420px;
-    height:220px;
-    background: radial-gradient(closest-side, rgba(155,107,255,0.12), transparent 40%);
-    filter: blur(30px);
-    pointer-events:none;
-    z-index:-1;
-  }
-
-  /* Аватар */
   .avatar{
     width:132px;
     height:132px;
@@ -129,7 +101,6 @@
   .birth{color:var(--muted);font-size:14px;margin:6px 0}
   .desc{color:rgba(255,255,255,0.85);font-size:15px;margin-bottom:18px}
 
-  /* Секция иконок — крупные и ровные */
   .icons{
     display:flex;
     flex-wrap:wrap;
@@ -152,17 +123,16 @@
     font-size:32px;
     text-decoration:none;
     border:1px solid rgba(255,255,255,0.02);
+    position: relative;
   }
 
   .icon:hover{
     transform: translateY(-6px) scale(1.06);
     box-shadow: 0 18px 46px rgba(123,92,255,0.16);
     background: linear-gradient(135deg, rgba(155,107,255,0.12), rgba(94,226,255,0.05));
-    color: #fff;
     filter: drop-shadow(0 0 10px rgba(155,107,255,0.14));
   }
 
-  /* Дополнительная неоновая рамка на иконках (тонкая) */
   .icon::after{
     content:'';
     position:absolute;
@@ -173,11 +143,8 @@
     top:7%;
     left:7%;
     pointer-events:none;
-    transition: opacity .2s;
   }
-  .icon:hover::after{ opacity:0.9; }
 
-  /* Кнопки под иконками */
   .actions{ display:flex; gap:10px; justify-content:center; margin-top:16px; flex-wrap:wrap }
   .btn{
     padding:10px 14px;
@@ -191,8 +158,6 @@
   }
   .btn:hover{ transform: translateY(-4px); }
 
-  .meta{ margin-top:12px; color:rgba(255,255,255,0.45); font-size:12px }
-
   @media (max-width:480px){
     .card{ padding:22px; width:92% }
     .avatar{ width:108px; height:108px; margin-top:-64px }
@@ -202,10 +167,8 @@
 </style>
 </head>
 <body>
-  <div class="card" role="main" aria-label="Визитка Сырым">
+  <div class="card">
     <div class="avatar">
-      <!-- Твоя фотка (ссылка оставляем ту что ты дал). Если хочешь использовать raw Github ссылку без ?raw=true,
-           можно заменить на https://raw.githubusercontent.com/SyrN1k-wq/SyrN1k-card/main/avatar.jpg -->
       <img src="https://github.com/SyrN1k-wq/SyrN1k-card/blob/main/avatar.jpg?raw=true" alt="Сырым">
     </div>
 
@@ -213,27 +176,25 @@
     <div class="birth">12 мая 2002</div>
     <div class="desc">Инженер, люблю музыку, игры и ночные поездки</div>
 
-    <div class="icons" role="navigation" aria-label="Ссылки">
-      <a class="icon" href="https://t.me/SyrNlk" title="Telegram" target="_blank" rel="noopener"><i class="fab fa-telegram-plane" aria-hidden="true"></i></a>
-      <a class="icon" href="https://www.instagram.com/syrym_tursynbek?igsh=aWIzdHk2YjZ4NTlo" title="Instagram" target="_blank" rel="noopener"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-      <a class="icon" href="https://www.tiktok.com/@syrn1k?_r=1&_t=ZS-912aozhZ5Ut" title="TikTok" target="_blank" rel="noopener"><i class="fab fa-tiktok" aria-hidden="true"></i></a>
-      <a class="icon" href="https://x.com/SyrN1k_?t=5ixVqZfKkQL7OKYLpLu5TA&s=09" title="X" target="_blank" rel="noopener"><i class="fab fa-x" aria-hidden="true"></i></a>
+    <div class="icons">
+      <a class="icon" href="https://t.me/SyrNlk" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+      <a class="icon" href="https://www.instagram.com/syrym_tursynbek?igsh=aWIzdHk2YjZ4NTlo" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a class="icon" href="https://www.tiktok.com/@syrn1k?_r=1&_t=ZS-912aozhZ5Ut" target="_blank"><i class="fab fa-tiktok"></i></a>
+      <a class="icon" href="https://x.com/SyrN1k_?t=5ixVqZfKkQL7OKYLpLu5TA&s=09" target="_blank"><i class="fab fa-x"></i></a>
 
-      <a class="icon" href="https://steamcommunity.com/profiles/76561198985265034/" title="Steam" target="_blank" rel="noopener"><i class="fab fa-steam" aria-hidden="true"></i></a>
-      <a class="icon" href="https://mangalib.me/ru/user/1524293" title="MangaLib" target="_blank" rel="noopener"><i class="fas fa-book" aria-hidden="true"></i></a>
-      <a class="icon" href="https://vk.com/s.tursynbek" title="VK" target="_blank" rel="noopener"><i class="fab fa-vk" aria-hidden="true"></i></a>
-      <a class="icon" href="https://music.yandex.ru/users/s.tursynbek/playlists/3?utm_medium=copy_link&ref_id=456ecb96-abb2-4123-9f92-bdde8804429b" title="Yandex.Music" target="_blank" rel="noopener"><i class="fas fa-music" aria-hidden="true"></i></a>
+      <a class="icon" href="https://steamcommunity.com/profiles/76561198985265034/" target="_blank"><i class="fab fa-steam"></i></a>
+      <a class="icon" href="https://mangalib.me/ru/user/1524293" target="_blank"><i class="fas fa-book"></i></a>
+      <a class="icon" href="https://vk.com/s.tursynbek" target="_blank"><i class="fab fa-vk"></i></a>
+      <a class="icon" href="https://music.yandex.ru/users/s.tursynbek/playlists/3?utm_medium=copy_link&ref_id=456ecb96-abb2-4123-9f92-bdde8804429b" target="_blank"><i class="fas fa-music"></i></a>
 
-      <a class="icon" href="https://wa.me/77752369423" title="WhatsApp" target="_blank" rel="noopener"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
-      <a class="icon" href="mailto:syrym.tursynbek@gmail.com" title="Email" target="_blank" rel="noopener"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+      <a class="icon" href="https://wa.me/77752369423" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <a class="icon" href="mailto:syrym.tursynbek@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
     </div>
 
     <div class="actions">
-      <a class="btn" href="tel:+77752369423" title="Позвонить">Позвонить</a>
-      <a class="btn" href="https://t.me/SyrNlk" target="_blank" rel="noopener" title="Telegram">Написать</a>
+      <a class="btn" href="tel:+77752369423">Позвонить</a>
+      <a class="btn" href="https://t.me/SyrNlk" target="_blank">Написать</a>
     </div>
-
-    <div class="meta">День рождения: 12 мая 2002</div>
   </div>
 </body>
 </html>
