@@ -1,93 +1,133 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Визитка Сырым</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-body {
-  margin:0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(180deg, #0b0f17, #0f1220);
-  color: #eef2ff;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  min-height:100vh;
-}
-.card {
-  background: rgba(255,255,255,0.03);
-  padding: 30px;
-  border-radius: 16px;
-  text-align:center;
-  width: 380px;
-  box-shadow: 0 10px 30px rgba(2,6,23,0.6);
-}
-.avatar {
-  width:140px;
-  height:140px;
-  margin:-70px auto 10px;
-  border-radius:50%;
-  background: linear-gradient(135deg,#7b5cff,#5f3dff);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:44px;
-  font-weight:bold;
-  color:#fff;
-  overflow:hidden;
-}
-.avatar img {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  border-radius:50%;
-}
-.name {font-size:22px; font-weight:bold; margin:10px 0 4px;}
-.birth {font-size:14px; color:rgba(255,255,255,0.6); margin-bottom:6px;}
-.sub {font-size:14px; color:rgba(255,255,255,0.6); margin-bottom:20px;}
-.icons {display:flex; flex-wrap:wrap; gap:12px; justify-content:center;}
-.link {
-  width:60px;
-  height:60px;
-  border-radius:12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background: rgba(255,255,255,0.02);
-  color:#fff;
-  font-size:26px;
-  text-decoration:none;
-  transition:0.2s;
-}
-.link:hover {
-  background: #7b5cff;
-  transform: scale(1.1);
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SyrN1k</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1a093b, #2a1a65, #170d3f, #2b186b);
+      background-size: 300% 300%;
+      animation: gradientShift 15s ease infinite;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 30px;
+      padding: 40px;
+      text-align: center;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 0 35px rgba(128, 0, 255, 0.25);
+      width: 320px;
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 50px rgba(170, 100, 255, 0.4);
+    }
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      overflow: hidden;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(255,255,255,0.1);
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin: 10px 0 5px;
+    }
+
+    .birthday {
+      font-size: 15px;
+      opacity: 0.8;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 16px;
+      color: #ccc;
+      margin-bottom: 25px;
+    }
+
+    .socials {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      justify-items: center;
+    }
+
+    .socials a {
+      color: white;
+      font-size: 28px;
+      transition: 0.3s;
+    }
+
+    .socials a:hover {
+      color: #c18eff;
+      transform: scale(1.25);
+      text-shadow: 0 0 10px #b57bff;
+    }
+
+    @media (max-width: 400px) {
+      .card {
+        width: 90%;
+        padding: 30px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="card">
+    <div class="avatar">
+      <img src="https://github.com/SyrN1k-wq/SyrN1k-card/blob/main/avatar.jpg?raw=true" alt="Сырым">
+    </div>
+    <h1>Сырым / SyrN1k</h1>
+    <div class="birthday">12 мая 2002</div>
+    <p>Инженер, люблю музыку, игры и ночные поездки</p>
 
-<div class="card">
-  <div class="avatar" id="avatar">ST</div>
-  <div class="name">Сырым / SyrN1k</div>
-  <div class="birth">12 мая 2002</div>
-  <div class="sub">Инженер, люблю музыку, игры и ночные поездки</div>
-
-  <div class="icons">
-    <a class="link" href="https://t.me/SyrNlk" target="_blank" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
-    <a class="link" href="https://www.instagram.com/syrym_tursynbek?igsh=aWIzdHk2YjZ4NTlo" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-    <a class="link" href="https://www.tiktok.com/@syrn1k?_r=1&_t=ZS-912aozhZ5Ut" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
-    <a class="link" href="https://x.com/SyrN1k_?t=5ixVqZfKkQL7OKYLpLu5TA&s=09" target="_blank" title="X (Twitter)"><i class="fab fa-x"></i></a>
-    <a class="link" href="https://steamcommunity.com/profiles/76561198985265034/" target="_blank" title="Steam"><i class="fab fa-steam"></i></a>
-    <a class="link" href="https://mangalib.me/ru/user/1524293" target="_blank" title="MangaLib"><i class="fas fa-book"></i></a>
-    <a class="link" href="https://vk.com/s.tursynbek" target="_blank" title="VK"><i class="fab fa-vk"></i></a>
-    <a class="link" href="https://music.yandex.ru/users/s.tursynbek/playlists/3?utm_medium=copy_link&ref_id=456ecb96-abb2-4123-9f92-bdde8804429b" target="_blank" title="Yandex.Music"><i class="fas fa-music"></i></a>
-    <a class="link" href="https://wa.me/77752369423" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-    <a class="link" href="mailto:syrym.tursynbek@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a>
+    <div class="socials">
+      <a href="https://t.me/SyrNlk"><i class="ri-telegram-fill"></i></a>
+      <a href="https://www.instagram.com/syrym_tursynbek"><i class="ri-instagram-fill"></i></a>
+      <a href="https://www.tiktok.com/@syrn1k"><i class="ri-tiktok-fill"></i></a>
+      <a href="https://x.com/SyrN1k_"><i class="ri-twitter-x-fill"></i></a>
+      <a href="https://steamcommunity.com/profiles/76561198985265034/"><i class="ri-steam-fill"></i></a>
+      <a href="https://mangalib.me/ru/user/1524293"><i class="ri-book-2-fill"></i></a>
+      <a href="https://vk.com/s.tursynbek"><i class="ri-vk-fill"></i></a>
+      <a href="https://music.yandex.ru/users/s.tursynbek/playlists/3"><i class="ri-music-2-fill"></i></a>
+      <a href="https://wa.me/77752369423"><i class="ri-whatsapp-fill"></i></a>
+      <a href="mailto:syrym.tursynbek@gmail.com"><i class="ri-mail-fill"></i></a>
+    </div>
   </div>
-</div>
-
 </body>
 </html>
